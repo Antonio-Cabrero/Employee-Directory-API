@@ -1,6 +1,8 @@
 
 const profilePopUp = document.querySelector('.profile-pop');
 const directory = document.querySelector('.directory');
+const employeeSearch = document.getElementsByClassName('employee-card')
+
 let employeDir = [];
 
 // API request
@@ -81,21 +83,23 @@ function generateHTML() {
 
 // EventListeners 
 
-const card = document.getElementsByClassName('employee-card');
 
-for (let i = 0; i < card.length; i++) {
-  card[i].addEventListener('click', () => {
-    console.log(i);
-  });
+
+
+directory.onclick= e =>
+{
+  for (let i = 0; i < employeeSearch.length; i++) {
+    employeeSearch[i].addEventListener('click', () => {
+      
+      console.log(i);
+    });
+  }
 }
 
-// directory.addEventListener('click', ()=> {
- 
 //   const element = e.target;
   
 //   if (element.classList.contains('employee-card') || element.parentNode.classList.contains('employee-info')){
 
-//   e.preventDefault();
 
 //   profilePopUp.style.display = "flex";
 //     generateHTML(employeDir); 
@@ -112,7 +116,6 @@ for (let i = 0; i < card.length; i++) {
 // Search bar
 
 const input = document.getElementById('search-bar')
-let employeeSearch = document.getElementsByClassName('employee-card')
 
 
 input.addEventListener("keyup", ()=> {    
