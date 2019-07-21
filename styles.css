@@ -15,6 +15,7 @@
     padding: 0;
     margin: 0;
     font-family: 'Khula', sans-serif;
+    list-style: none;
 
 }
 
@@ -64,6 +65,60 @@
     box-shadow: 0px 3px 5px #ccc;
     border-radius: 6px;
 }
+    .employee-card:hover {
+        cursor: pointer;
+    }
+
+
+.employee-img {
+    border-radius: 50%;
+    height: 60px;
+    transform: scale(1.5);
+    margin: auto 0;
+    margin-right: 30px;
+}
+    .employee-pic {
+        border-radius: 50%;
+        height: 100px;
+        transform: scale(1.5) translateY(-70px);
+        margin-bottom: 25px;
+    }
+
+/* ALERT */
+
+.profile-pop {
+    display: none; 
+    position: fixed; 
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.4); 
+}
+    .message {
+        background-color: #fff;
+        padding: 0 50px;
+        text-align: center;
+        border-radius: 6px;
+    }   
+        .message li {
+            margin: 10px 0;
+        }
+        .message li:first-child {
+            height: 15px;
+        }
+
+.close {
+    width: 70%;
+    cursor: pointer;
+    text-align: end;
+    transform: scale(2.5);
+    color: #000;
+}
 
 @media (min-width: 768px) {
 
@@ -80,8 +135,7 @@
     margin-right: 20px;
 }
 
-
-
-
-
 }
+
+
+
