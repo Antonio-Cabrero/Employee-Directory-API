@@ -14,7 +14,7 @@ fetch('https://randomuser.me/api/?results=12&inc=name,email,phone,location,pictu
     employees.map(item => employeDir.push(item));
       for (let i = 0; i<employees.length; i++){
           let employee = employees[i]
-          employeCard(employee);
+          employeCard(employee, i);
       }
     }
   )
@@ -29,7 +29,7 @@ function getDirectory(arr) {
   employeDic = arr.map();
 }
 
-function employeCard (str) {
+function employeCard (str, index) {
 
   const main = document.querySelector('.directory');
 
@@ -41,10 +41,17 @@ function employeCard (str) {
   let info = document.createElement('p');
 
   // Set class lists
-  card.classList = "employee-card";
+  card.classList = `employee-card`;
   img.classList = "employee-img";
   infoWrap.classList = "employee-info";
   name.classList = "employee-name";
+
+  //Set index
+  card.setAttribute(`data-index`, `${index}`);
+  info.setAttribute(`data-index`, `${index}`);
+  img.setAttribute(`data-index`, `${index}`);
+  infoWrap.setAttribute(`data-index`, `${index}`);
+  name.setAttribute(`data-index`, `${index}`);
 
   // Info distribution
   img.src = str.picture.medium;
@@ -58,15 +65,17 @@ function employeCard (str) {
   card.appendChild(infoWrap);
   infoWrap.appendChild(name);
   infoWrap.appendChild(info);
+
   }
 
-function generateHTML() {
+function generateHTML(getIn) {
 
   str = employeDir[getIn];
   profilePopUp.innerHTML = `
               
-    <ul class="message">
-      
+    <button class="prev-btn">Prev</button>  
+    
+    <ul class="message" data-employee=${getIn}> 
       <li> <img class="employee-pic" src=${str.picture.large} alt=${str.name.first} ${str.name.last}></li>
       <li><h3 class="employee-name">${firstCap(str.name.first)} ${firstCap(str.name.last)}</h3></li> 
       <li>${str.email}</li>
@@ -75,42 +84,61 @@ function generateHTML() {
       <li>${str.phone}</li>
       <li>${str.location.street} ${str.location.postcode}</li>
       <li>${firstCap(str.location.state)}</li>
-      <li class="close">&times;</li>
-    </ul>`
+      <button class="close">Close</button>
+    </ul>
+    <button class="next-btn">Next</button>  `
 
 }
 
+function  getIndex(el){
+  let index = el.getAttribute('data-index');
+  return index;
+}
 
 // EventListeners 
 
+directory.onclick = e =>
+{ let element = e.target; 
+  let index;  
 
-
-
-directory.onclick= e =>
-{
-  for (let i = 0; i < employeeSearch.length; i++) {
-    employeeSearch[i].addEventListener('click', () => {
-      
-      console.log(i);
-    });
+  if (element.hasAttribute('data-index')){
+  index = getIndex(element);
+  profilePopUp.style.display = "flex";
+  generateHTML(index)
   }
+  
 }
 
-//   const element = e.target;
-  
-//   if (element.classList.contains('employee-card') || element.parentNode.classList.contains('employee-info')){
+profilePopUp.addEventListener("click",(e)=>{
+  let el = e.target;
+  let getIndex= document.querySelector('.message').getAttribute('data-employee');
+  let index = parseInt(getIndex);
+  const nextBtn = document.querySelector('.next-btn');
+  const prevtBtn = document.querySelector('.prev-btn')
 
 
-//   profilePopUp.style.display = "flex";
-//     generateHTML(employeDir); 
-  
-    
-//     profilePopUp.addEventListener('click', (e) => {
-//         profilePopUp.innerHTML = '';
-//         profilePopUp.style.display = "none"; 
-//     })
+  if (el.className === 'next-btn'){
+    if (index === 11) {
+      generateHTML(index - 11)
+    } else {
+      generateHTML(index + 1)
+    }
 
-// })
+  } else if (el.className === 'prev-btn') {
+    if (index === 0) {
+      generateHTML(index + 11)
+    } else {
+      generateHTML(index - 1)
+    }
+  }
+
+  if (el.className === 'close'){ 
+      
+    profilePopUp.innerHTML = '';
+    profilePopUp.style.display = "none"; 
+    }
+
+})
 
 
 // Search bar
