@@ -7,7 +7,7 @@ let employeDir = [];
 
 // API request
   
-fetch('https://randomuser.me/api/?results=12&inc=name,email,phone,location,picture&nat=us&seed=foodbar')
+fetch('https://randomuser.me/api/?results=12&inc=name,email,phone,location,picture&nat=us')
   .then(response => response.json())
   .then(data=> {
     let employees = data.results;
